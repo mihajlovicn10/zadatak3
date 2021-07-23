@@ -1,0 +1,22 @@
+{% load socialaccount %}
+<html>
+<body>
+<h1>Home page </h1>
+{% if user.is_authenticated %}
+  <p>Welcome, {{ user.username }}</p>
+{% else %}
+  <a href="{% provider_login_url 'google' %}">Login with your Google account</a>
+{% endif %}
+<p> Enter your books here: </p>
+<form action="/book-add/" method="POST">
+  {% csrf_token %}
+  <p>Enter the title: </p><br> 
+  <input type="text" name="title"> 
+  <p>Enter the description: </p> <br>
+  <input type="text" name="description"> 
+  <button type="submit" value="submit">Submit here!</button> 
+</form>
+<p>To see all the books you've read, click <a href="/book_list_ui/">here.</a></p>
+<p>To make an api key, click <a href="/make/">here.</a></p>
+</body>
+</html>

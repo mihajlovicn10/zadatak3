@@ -1,0 +1,22 @@
+{% load socialaccount %}
+<html>
+<body>
+<h1>Home page </h1>
+{% if user.is_authenticated %}
+  <p>Welcome, {{ user.username }}</p>
+{% else %}
+  <a href="{% provider_login_url 'google' %}">Login with your Google account</a>
+{% endif %}
+<p> Enter your books here: </p>
+<form action="/generate/" method="POST">
+  {% csrf_token %}
+  <input type="radio" id="Prvi"name="nacin" value="full">
+  <label for="Prvi">Full </label>
+  <input type="radio" id="Drugi"name="nacin" value="read"checked>
+  <label for="Drugi">Read </label>
+  <input type="hidden" name="user" value="{{user.username}}"> 
+  <input type="submit"value="Make">  
+</form>
+<p>To see all the books you've read, click <a href="/book_list_ui/">here.</a></p>
+</body>
+</html>
